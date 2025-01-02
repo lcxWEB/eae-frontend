@@ -34,3 +34,25 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Push image to Google Container Registry (GCR)
+```bash
+docker tag eae-frontend-app gcr.io/imperial-signer-445605-u3/eae-frontend-app
+gcloud auth configure-docker
+docker push gcr.io/imperial-signer-445605-u3/eae-frontend-app
+```
+## Make suire gccloud services enabled
+```bash
+gcloud services enable containerregistry.googleapis.com run.googleapis.com
+```
+## deploy to Cloud Run
+```bash
+gcloud run deploy eae-frontend-service \
+    --image gcr.io/imperial-signer-445605-u3/eae-frontend-app \
+    --platform managed \
+    --region us-central1 \
+    --allow-unauthenticated
+```
+
+gcloud run services update eae-frontend-service --set-env-vars NEXT_PUBLIC_BACKEND_URL=https://cloud-run-microservice-template-java-914045543887.us-central1.run.app
+

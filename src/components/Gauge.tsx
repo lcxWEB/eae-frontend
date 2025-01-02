@@ -111,7 +111,7 @@ const Gauge: React.FC<GaugeProps> = ({
   }, [value, minValue, maxValue, unit]);
 
   return (
-    <div className="flex flex-col items-center bg-gray-700 p-4 rounded-lg w-full">
+    <div className="flex flex-col items-center bg-gray-700 rounded-lg grid grid-cols-2">
       <div
         ref={chartRef}
         style={{ width: "200px", height: "200px" }} // Full circle gauge
